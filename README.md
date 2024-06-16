@@ -39,3 +39,6 @@ jakoś pomóc. Ewentualna pomoc
 ### Dane do hostów:
 
 
+1. Julia    51.136.108.80
+2. Karolina   51.136.108.150
+3. Przemysław    51.136.109.45
