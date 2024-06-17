@@ -79,4 +79,61 @@ if __name__ == '__main__':
 
     # napisz funkcje aplikuj ktora dostanie jako parametr wartosc i dowolna liczbe funkcji. Następnie zaaplikuje wszystkie te funkcje dla podajnej wartosci i zwroic ja
 
+    funkcje = [pomnoz_razy_dwa, podziel_przez_trzy, dodaj_piec]
 
+    def aplikuj(wartosc: int, *funckje) -> float:
+        for f in funckje:
+            wartosc = f(wartosc)
+        return wartosc
+
+
+    print(aplikuj(1, *funkcje))
+
+    ##############################################
+
+    def funkcja_przykladowa(arg1, *args, **kwargs):
+        print("arg1:", arg1)
+        print("args:", args)
+        print("kwargs:", kwargs)
+
+
+    funkcja_przykladowa(1, 2, 3, 4, imie='Anna', wiek=30)
+
+
+
+    def czytaj_pdf(plik):
+        print("czytam pdf")
+
+    def czytaj_xml(plik):
+        print("czytam xml")
+
+
+    dekodawnie_plikow = {
+        ".pdf": czytaj_pdf,
+        ".xml": czytaj_xml
+    }
+    wspierane = list(dekodawnie_plikow.keys())
+
+    for plik in os.listdir("."):
+        rozszerzenie = os.path.splitext(plik)[1]
+        if rozszerzenie in wspierane:
+            dekodawnie_plikow[rozszerzenie](plik)
+
+
+    def parametr_kwargs(**kwargs):
+        for k in kwargs:
+            print(k, kwargs[k])
+
+    parametr_kwargs(dodatkowy=48, nastepny=111)
+
+    # Stworz funkcje "config" ktora bedzie otrzymywala argumenty kwargs bedace ustawieniami.
+    # Funkcja ta ma zapisac podane argumenty do pliku .csv (nazwa przekazana jako argument) w 2 kolumnach z czego pierwsza jest nazwa
+    # argumentu a druga jego wartoscia. Jesli dane argument juz istnieje w pliku to trzeba bedzie tylko zaktualizowac
+    # jego wartosc, jesli jeszcze go nie ma to trzeba go bedzie dodac do pliku.
+    # plik = open(nazwa_pliku, mode='w', encoding='utf-8')
+    # plik.write(f'{p};{parametry[p]}\n')
+
+
+
+    config("plik.csv", wersja=1, arg=2, argument321=3, parametr1="wartość 2")
+    config("plik.csv", arg_inny=2, argument321=10, wersja=2.0)
