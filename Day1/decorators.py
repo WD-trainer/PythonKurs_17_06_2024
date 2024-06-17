@@ -218,10 +218,70 @@ if __name__ == '__main__':
     user2 = {'name': 'Anna', 'permission': 'user'}
 
 
+    def check_permissions(required_permission):
+        def decorator(func):
+            @functools.wraps(func)
+            def wrapper(user, *args, **kwargs):
+                if user.get('permission') == required_permission:
+                    return func(user, *args, **kwargs)
+                else:
+                    print("Brak uprawnień do wykonania tej funkcji")
+
+            return wrapper
+
+        return decorator
+
+    @check_permissions('user')
     def user_function(user):
         print("Witaj, użytkowniku!")
 
 
+    @check_permissions('admin')
     def admin_function(user):
         print("Witaj, adminie!")
 
+
+    admin_function(user1)  # Output: Witaj, adminie!
+    admin_function(user2)  # Output: Brak uprawnień do wykonania tej funkcji
+    user_function(user2)  # Output: Witaj, użytkowniku!
+    user_function(user1)  # Output: Brak uprawnień do wykonania tej funkcji
+
+
+    def count_calls(func):
+        @functools.wraps(func)
+        def wrapper_count_calls(*args, **kwargs):
+            wrapper_count_calls.num_calls += 1
+            print(f"Call {wrapper_count_calls.num_calls} of {func.__name__}()")
+            return func(*args, **kwargs)
+
+        wrapper_count_calls.num_calls = 0
+        return wrapper_count_calls
+
+
+    @count_calls
+    def hello():
+        print("Hello world")
+
+    hello()
+    hello()
+    hello()
+    hello()
+
+
+    # napisac dekorator cache ktory bedzie zapmietywał wynik wykonania danej funkcji i wypisac na ekran kiedy korzystamy z cachu
+
+
+
+
+
+    def mnozenie(a:float, b:float) -> float:
+        return a * b
+
+
+    mnozenie(2,2)
+    mnozenie(2, 2)
+
+    mnozenie(2, 3)
+    mnozenie(3,2)
+
+    mnozenie(b=3, a=2)
