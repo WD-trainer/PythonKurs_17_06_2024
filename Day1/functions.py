@@ -133,7 +133,54 @@ if __name__ == '__main__':
     # plik = open(nazwa_pliku, mode='w', encoding='utf-8')
     # plik.write(f'{p};{parametry[p]}\n')
 
+    def config(nazwa_pliku, **parametry):
+        wczytany_config = {}
+        with open(nazwa_pliku, mode='r', encoding='utf-8') as plik:
+            for linia in plik:
+                if linia.isspace():
+                    continue
+                klucz, wartosc = linia.split(';')
+                wczytany_config[klucz] = wartosc
+
+        for p in parametry:
+            wczytany_config[p] = parametry[p]
+
+        plik = open(nazwa_pliku, mode='w', encoding='utf-8')
+        for p in wczytany_config:
+            plik.write(f'{p};{wczytany_config[p]}\n')
+        plik.close()
 
 
     config("plik.csv", wersja=1, arg=2, argument321=3, parametr1="wartość 2")
     config("plik.csv", arg_inny=2, argument321=10, wersja=2.0)
+
+
+    def zewnetrzna(x):
+        def wewnetrzna(x):
+            return x * 2
+
+        print(wewnetrzna(x))
+        return 1
+
+
+    print(zewnetrzna(x=5))
+
+
+    # funkcja zwracajaca funkcje
+    def outer(x):
+        def inner(y):
+            return x + y
+
+        return inner
+
+
+    dodaj_dwa = outer(2)
+    wynik = dodaj_dwa(7)
+    print(wynik)
+
+
+    # Napisz funkcje która będzie tworzyła listę liczb parzystych lub nieparzystych w danym zakresie
+    # funkcje do sprawdzenia parzystosci napisz jako funckje wewnętrzne i w zależności
+    # od przekazanego parametru wywołuj odpowiednią
+    # range(start, koniec)
+    def generuj_liczby(start, koniec, parzyste):
