@@ -79,3 +79,20 @@ if __name__ == '__main__':
     print(list_of_names)
 
     #  Oblicz średnią ocenę dla każdego studenta i dodaj ją do ich słownika
+    for id in studenci:
+        oceny = studenci[id]['oceny']
+        srednia = sum(oceny) / len(oceny)
+        studenci[id]['srednia_ocen'] = srednia
+
+    print(studenci)
+
+    nazwiska = ['Kowalski', 'Nowak', 'Zielinski', 'Wiśniewska', 'Wojcik']
+    dlugosci_nazwisk = {nazwisko: len(nazwisko) for nazwisko in nazwiska if len(nazwisko) > 6}
+    print(dlugosci_nazwisk)
+
+    #  Znajdź studentów, którzy mają średnią ocenę powyżej 4.0
+    
+
+
+
+
