@@ -269,12 +269,24 @@ if __name__ == '__main__':
 
 
     # napisac dekorator cache ktory bedzie zapmietywał wynik wykonania danej funkcji i wypisac na ekran kiedy korzystamy z cachu
+    def cache(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            cache_key = args + tuple(kwargs.values())
+            if cache_key not in wrapper.cache_dict:
+                wrapper.cache_dict[cache_key] = func(*args, **kwargs)
+                return wrapper.cache_dict[cache_key]
+            else:
+                print("Using cached value")
+                return wrapper.cache_dict[cache_key]
+
+        wrapper.cache_dict = {}
+        return wrapper
 
 
-
-
-
+    @cache
     def mnozenie(a:float, b:float) -> float:
+        print(f'Wynik: {a * b}')
         return a * b
 
 
@@ -285,3 +297,31 @@ if __name__ == '__main__':
     mnozenie(3,2)
 
     mnozenie(b=3, a=2)
+
+
+    def add_method_decorator(cls):
+        # Define a new method to be added
+        def new_method(self):
+            return "This is a new method"
+
+        # Add the new method to the class
+        cls.new_method = new_method
+        return cls
+
+
+    # Apply the decorator to the class
+    @add_method_decorator
+    class MyClass:
+        def __init__(self, value):
+            self.value = value
+
+        def display_value(self):
+            return f"The value is {self.value}"
+
+
+    # Create an instance of the class
+    instance = MyClass(10)
+    # Call the original method
+    print(instance.display_value())  # Output: The value is 10
+    # Call the new method added by the decorator
+    print(instance.new_method())  # Output: This is a new method
