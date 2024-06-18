@@ -305,13 +305,145 @@ print(v1)
 #def __exit__(self, *args):
 
 #https://www.geeksforgeeks.org/context-manager-in-python/
+class Timer(object):
+    def __init__(self, verbose=False):
+        self.timer = timer
+        self.elapsed = 0
+        self.verbose = verbose
 
+    def __enter__(self):
+        self.start = self.timer()
+        return self
+
+    def __exit__(self, *args):
+        end = self.timer()
+        self.elapsed_secs = end - self.start
+        self.elapsed = self.elapsed_secs * 1000  # milliseconds
+        if self.verbose:
+            print('elapsed time: %f ms' % self.elapsed)
 
 
 
 with Timer(verbose=True) as t:
     # time.sleep(3)
     print("Moja bardzo długa funkcja")
+
+
+
+#################################################### CWICZENIE DODATKOWE
+
+# Stwórz klasę Ustawienia która będzie w momencie tworzenia obiektu czytac plik ustawienia.csv o treści:
+# encoding;utf-8
+# language;pl
+# timezone;-2
+# Dane te mają zostać wczytane do wewnętrznego słownika tak, by pierwsza kolumna stanowila klucze a druga wartosci.
+# Obiekt ma umożliwiać sprawdzanie ustawień w ten sposób:
+# u=Ustawienia()
+# print( u['encoding'] )
+# Obiekt ma umożliwiać też ustawienie wartości na zasadzie u[‘nazwa’]=’wartosc’.
+# W przypadku zmiany powinna ona dotyczyć również zawartości pliku.
+
+#################################################### CWICZENIE DODATKOWE
+
+
+# zmien klase animal na klase abstrakcyjna
+# zmien metode speak na metode abstrakcyjna
+# dodaj interfejs ILiveOn ktore bedzie posiadał funkcje where_I_live()
+# dodac interfejs do klas pochodnych klasy animal
+
+class Animal(object):
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        print(f"{self.name} makes a sound")
+
+    def eat(self):
+        print("eating")
+
+    def __str__(self):
+        return f'My name is {self.name}'
+
+class Dog(Animal):
+    def speak(self):
+        print(f"{self.name} barks")
+
+
+class Cat(Animal):
+    def speak(self):
+        print(f"{self.name} meows")
+
+
+animal = Animal("Generic Animal")
+dog = Dog("Buddy")
+cat = Cat("Whiskers")
+
+animal.speak()
+dog.speak()
+cat.speak()
+cat.eat()
+
+lista_zwierzat = [cat, dog]
+
+for zwierze in lista_zwierzat:
+    zwierze.speak()
+    # zwierze.eat()
+    print(zwierze)
+
+
+
+class IDraw(ABC):
+    @abstractmethod
+    def drawing(self):
+        pass
+
+class Figure(ABC):
+    def __init__(self, name):
+        self.name = name
+
+    def give_name(self):
+        print(f"Figure {self.name}")
+
+    @abstractmethod
+    def area(self):
+        pass
+
+
+class Squre(Figure, IDraw):
+    def __init__(self, lenght:float):
+        super().__init__("Squer")
+        self.lenght = lenght
+
+    def area(self):
+        return self.lenght ** 2
+
+    def drawing(self):
+        print("**")
+        print("**")
+
+
+class Rectangle(Figure, IDraw):
+    def __init__(self, a:float, b:float):
+        super().__init__("Rectangle")
+        self.a = a
+        self.b = b
+
+    def area(self):
+        return self.a * self.b
+
+    def drawing(self):
+        print("****")
+        print("****")
+
+
+figury =  [Rectangle(2,3), Squre(50), Rectangle(6,8)]
+for f in figury:
+    f.give_name()
+    print(f.area())
+    f.drawing()
+
+
+
 
 
 
