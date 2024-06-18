@@ -80,10 +80,44 @@ if __name__ == '__main__':
 
 
     # napisz generator ktory bedzie zwracan nieskonczenie wiele liczb pierwszych
-
+    def prime_numbers():
+        num = 2
+        while True:
+            if is_prime(num):
+                yield num
+            num += 1
 
 
     generator_of_primes = prime_numbers()
-    
+
     for i in range(20):
         print(next(generator_of_primes))
+
+
+    potegi2 = [2 ** i for i in range(100)]
+
+    generator_potegi = (2 ** i for i in range(1000000000000))
+
+    print(generator_potegi)
+    print(next(generator_potegi))
+    print(next(generator_potegi))
+    print(next(generator_potegi))
+
+
+    def read_lines_in_batches(file_path: str, batch_size: int = 3):
+        with open(file_path) as file:
+            while True:
+                batch = []
+                for _ in range(batch_size):
+                    line = file.readline()
+                    if not line:
+                        break
+                    batch.append(line.strip())
+                if not batch:
+                    break
+                yield batch
+
+
+    file = r'../Day1/text.txt'
+    for i, batch in enumerate(read_lines_in_batches(file)):
+        print(f'Batch number {i}: {batch}')
