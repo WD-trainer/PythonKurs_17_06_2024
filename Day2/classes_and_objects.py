@@ -215,11 +215,34 @@ for z in list_zawodnikow:
 
 
 class Vector2D:
+    """
+    General class discritpion:
+
+    Attributes:
+        x -
+        y -
+
+    Examples:
+        Vector2D(3,4)
+    """
     def __init__(self, x, y):
+        """
+
+        Parameters
+        ----------
+        x
+        y
+        """
         self.x = x
         self.y = y
 
     def __repr__(self):
+        """
+
+        Returns
+        -------
+
+        """
         return f'Vector({self.x}, {self.y})'
 
     def __str__(self):
@@ -235,6 +258,16 @@ class Vector2D:
         return Vector2D(self.x - other.x, self.y - other.y)
 
     def __mul__(self, scalar):
+        """
+
+        Parameters
+        ----------
+        scalar
+
+        Returns
+        -------
+
+        """
         return Vector2D(self.x * scalar, self.y * scalar)
 
     def __len__(self):
@@ -351,12 +384,19 @@ with Timer(verbose=True) as t:
 # dodaj interfejs ILiveOn ktore bedzie posiadał funkcje where_I_live()
 # dodac interfejs do klas pochodnych klasy animal
 
-class Animal(object):
+class ILiveOn(ABC):
+    @abstractmethod
+    def where_I_live(self):
+        pass
+
+
+class Animal(ABC):
     def __init__(self, name):
         self.name = name
 
+    @abstractmethod
     def speak(self):
-        print(f"{self.name} makes a sound")
+        pass
 
     def eat(self):
         print("eating")
@@ -364,21 +404,28 @@ class Animal(object):
     def __str__(self):
         return f'My name is {self.name}'
 
-class Dog(Animal):
+
+class Dog(Animal, ILiveOn):
     def speak(self):
         print(f"{self.name} barks")
 
+    def where_I_live(self):
+        print("In dog house outside")
 
-class Cat(Animal):
+
+class Cat(Animal, ILiveOn):
     def speak(self):
         print(f"{self.name} meows")
 
+    def where_I_live(self):
+        print("In my owner bed")
 
-animal = Animal("Generic Animal")
+
+#animal = Animal("Generic Animal") # !!!!
 dog = Dog("Buddy")
 cat = Cat("Whiskers")
 
-animal.speak()
+# animal.speak() # !!!!
 dog.speak()
 cat.speak()
 cat.eat()
@@ -387,6 +434,7 @@ lista_zwierzat = [cat, dog]
 
 for zwierze in lista_zwierzat:
     zwierze.speak()
+    zwierze.where_I_live()
     # zwierze.eat()
     print(zwierze)
 
@@ -443,6 +491,92 @@ for f in figury:
     f.drawing()
 
 
+# from pandas import DataFrame
+# from sklearn.svm import SVC
+
+################################## Example of mixin
+
+class BorrowableMixin:
+    def __init__(self):
+        self._borrowed = False
+
+    def borrow(self):
+        if self._borrowed:
+            raise Exception("Item already borrowed")
+        self._borrowed = True
+
+    def return_item(self):
+        if not self._borrowed:
+            raise Exception("Item not borrowed")
+        self._borrowed = False
+
+    def is_borrowed(self):
+        return self._borrowed
+
+
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def info(self):
+        return f"Book: {self.title} by {self.author}"
+
+
+class DVD:
+    def __init__(self, title, director):
+        self.title = title
+        self.director = director
+
+    def info(self):
+        return f"DVD: {self.title}, directed by {self.director}"
+
+
+class BorrowableBook(Book, BorrowableMixin):
+    def __init__(self, title, author):
+        Book.__init__(self, title, author)
+        BorrowableMixin.__init__(self)
+
+class BorrowableDVD(DVD, BorrowableMixin):
+    def __init__(self, title, director):
+        DVD.__init__(self, title, director)
+        BorrowableMixin.__init__(self)
+
+
+book = BorrowableBook("1984", "George Orwell")
+dvd = BorrowableDVD("Inception", "Christopher Nolan")
+
+print(book.info())
+book.borrow()
+print(f"Czy jest wypozyczona {book.is_borrowed()}")
+book.return_item()
+print(f"Czy jest wypozyczona {book.is_borrowed()}")
+
+
+# Python używa algorytmu C3 linearization (MRO - Method Resolution Order) do ustalania kolejności przeszukiwania klas bazowych.
+class A:
+    def do_something(self):
+        print("A")
+
+class B(A):
+    def do_something(self):
+        print("B")
+        super().do_something()
+
+class C(A):
+    def do_something(self):
+        print("C")
+        super().do_something()
+
+class D(B, C):
+    def do_something(self):
+        print("D")
+        super().do_something()
+
+
+d = D()
+d.do_something()
+
 
 
 
@@ -459,20 +593,19 @@ for f in figury:
 
 # https://docs.python.org/3/library/dataclasses.html
 
+@dataclass
+class Person:
+    first_name: str
+    last_name: str
+    age: int
 
-# @dataclass
-# class Person:
-#     first_name: str
-#     last_name: str
-#     age: int
-#
-#
-# person1 = Person('Jan', 'Kowalski', 30)
-# person2 = Person('Anna', 'Nowak', 25)
-#
-# print(person1)
-# print(person2)
-#
-# print(person1 == person2)
+
+person1 = Person('Jan', 'Kowalski', 30)
+person2 = Person('Anna', 'Nowak', 25)
+
+print(person1)
+print(person2)
+
+print(person1 == person2)
 
 
