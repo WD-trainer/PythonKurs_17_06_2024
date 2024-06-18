@@ -104,7 +104,7 @@ if __name__ == '__main__':
     print(next(generator_potegi))
 
 
-    def read_lines_in_batches(file_path: str, batch_size: int = 3):
+    def read_lines_in_batches(file_path: str, batch_size: int = 3) -> list[str]:
         with open(file_path) as file:
             while True:
                 batch = []
