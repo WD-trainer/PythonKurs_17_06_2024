@@ -292,18 +292,21 @@ print(hash_value)
 v1[0] = 15  # __setitem__
 print(v1)
 
-# v1()
-
 
 # Napisz klase Timer która będzie mierzyła czas wykonania funkcji jako context menager.
 # klasa ta w zaleznosci od zmiennej verbose bedzie wypisywała na ekran czas wykonania przy wyjsciu z contextu
 # from timeit import default_timer as timer
-timer_obj = timer
-start = timer_obj()
+#timer_obj = timer
+#start = timer_obj()
 # cos co mierzymy
-end = timer_obj()
+#end = timer_obj()
+
 #def __enter__(self):
 #def __exit__(self, *args):
+
+#https://www.geeksforgeeks.org/context-manager-in-python/
+
+
 
 
 with Timer(verbose=True) as t:
