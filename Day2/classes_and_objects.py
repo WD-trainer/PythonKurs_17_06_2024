@@ -38,6 +38,7 @@ o.wypiszMnie()
 
 #o.imie = "Krzysztof" # *tak nie powinniśmy robić
 print(o.imie, o.wiek, o.nazwisko)
+str(o)
 
 o2 = Osoba(imie="Krzysztof", nazwisko="Nowak", wiek=32)
 print(o2.imie, o2.wiek, o2.nazwisko)
