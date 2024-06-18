@@ -51,6 +51,7 @@ def do_opakowania(x : int):
     return x
 
 
+
 if __name__ == '__main__':
     do_opakowania(5)
     do_opakowania(10)
@@ -59,4 +60,32 @@ if __name__ == '__main__':
 
     # Stwórz dekorator limit_calls który ogranicza liczbę wywołań danej funkcji.
     # Jeśli funkcja zostanie wywołana więcej razy niż dozwolone, dekorator powinien zwrócić komunikat o błędzie.
-    
+
+    def limit_calls(max_calls):
+        def decorator(func):
+            @functools.wraps(func)
+            def wrapper(*args, **kwargs):
+                if wrapper.call_count >= max_calls:
+                    print("Błąd: przekroczono maksymalną liczbę wywołań")
+                    return -1
+                wrapper.call_count += 1
+                return func(*args, **kwargs)
+
+            wrapper.call_count = 0
+            return wrapper
+
+        return decorator
+
+    @limit_calls(max_calls=3)
+    def greet(name):
+        print(f"Cześć, {name}!")
+
+    greet("Karolina")
+    greet("Przemysław")
+    greet("Julia")
+    greet("Wojtek")
+
+    # https://realpython.com/primer-on-python-decorators/#more-real-world-examples
+    # https://refactoring.guru/pl/design-patterns/catalog
+    # https://github.com/lord63/awesome-python-decorator
+
