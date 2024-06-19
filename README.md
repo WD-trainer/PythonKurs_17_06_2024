@@ -1,4 +1,4 @@
-# PythonKurs_18_03_2024
+# PythonKurs_17_06_2024
 
 # Wstęp:
 1. Wyświetlenie punktów wstępu
