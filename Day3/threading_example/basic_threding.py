@@ -41,15 +41,23 @@ def main_threading():
     print("Total sum:", total_sum)
 
 
+def fetch_and_count_words(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        content = response.text
+        words_count = len(content.split())
+        print(f"Words count from {url}: {words_count}")
+
+
 if __name__ == "__main__":
     thread1 = threading.Thread(target=print_numbers)
-    thread2 = threading.Thread(target=print_letters)  ### deamon=True
+    thread2 = threading.Thread(target=print_letters, daemon=True)  ### daemon=True
 
-    thread1.start()
-    thread2.start()
+    # thread1.start()
+    # thread2.start()
 
-    thread1.join()
-    thread2.join()
+    #thread1.join()
+    #thread2.join()
     print("Done!")
 
 
