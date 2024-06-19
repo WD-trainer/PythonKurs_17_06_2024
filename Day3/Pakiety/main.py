@@ -24,11 +24,11 @@ from wypisywacz import pisacz
 # rzuc wyjatkiem Value error.
 # W pliku __init__.py ustaw zmienna __all__ tak aby tylko funkcja liczac BMI byla widoczna po imporcie pakietu
 import BodyMassIndex as bmi
-
+#from BodyMassIndex import calculate_bmi
 
 
 # PYTHONPATH jest istotny
-# from Day1.functions import times2
+from Day1.functions import times2
 
 #Nazwy modułów
 #Importy cykliczne
