@@ -17,3 +17,8 @@ data = response.json()
 
 for training in data:
     print(training)
+
+# z adresu  http://jsystems.pl/Universe/samaTabelka.do pobierz informacje o szkoeleniach i przefiltruj je pod katem szukanej frazy
+# funckje opakuj przy pomocy bibloteki fire, adres url zapisz w plik .env i skorzystaj z biblioteki dotenv
+
+## Rozwiazanie w pliku task_dotenv_fire.py
