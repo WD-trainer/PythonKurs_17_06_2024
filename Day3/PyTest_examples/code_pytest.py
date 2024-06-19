@@ -57,3 +57,22 @@ def calculate_percentage(value: float, percent: float) -> float:
     if percent < 0 or percent > 100:
         raise ValueError("Percent must be between 0 and 100")
     return value * (percent / 100)
+
+
+
+baza = []
+
+def loadDB():
+    print("############## ŁADOWANIE BAZY ##############")
+    global baza
+    baza = [(1, "Marian"), (2, "Czesław"), (3, "Zenon"), (4, "Florian")]
+
+
+def getData():
+    global baza
+    return baza
+
+
+def getOne(index: int):
+    global baza
+    return baza[index]
