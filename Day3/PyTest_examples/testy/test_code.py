@@ -1,7 +1,7 @@
 import pytest  # pip install pytest
 
 
-from Day3.PyTest_examples.code_pytest import sumuj, dajCyfry
+from Day3.PyTest_examples.code_pytest import sumuj, dajCyfry, is_palindrome
 
 
 def test_sumuj():
