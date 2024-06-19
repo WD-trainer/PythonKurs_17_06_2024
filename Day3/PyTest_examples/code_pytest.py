@@ -30,3 +30,11 @@ def is_palindrome(text: str) -> bool:
     return (
         text == text[::-1]
     )
+
+
+# napiszcie testy z parametryzacja (pytest) ktory sprawdzi czy potrafimy wyliczyc srednia
+# osobny test dla pustej listy (dla None porownanie operatorem is)
+def calculate_average(numbers: list[float]) -> float | None:
+    if not numbers:
+        return None
+    return sum(numbers) / len(numbers)
