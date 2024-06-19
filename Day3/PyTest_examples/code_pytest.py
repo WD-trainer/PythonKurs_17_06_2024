@@ -38,3 +38,22 @@ def calculate_average(numbers: list[float]) -> float | None:
     if not numbers:
         return None
     return sum(numbers) / len(numbers)
+
+
+
+def nieprzetestowana_funckja(a):
+    if a > 10:
+        print(f"Hahahahaha a mnie nie przetestowałeś! {a}")
+    print(f"Testing")
+
+
+def fetch_data():
+    response = requests.get("https://example.com/api/data")
+    return response.text
+
+
+
+def calculate_percentage(value: float, percent: float) -> float:
+    if percent < 0 or percent > 100:
+        raise ValueError("Percent must be between 0 and 100")
+    return value * (percent / 100)
