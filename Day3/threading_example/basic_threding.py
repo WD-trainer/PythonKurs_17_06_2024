@@ -71,7 +71,16 @@ if __name__ == "__main__":
         "https://www.python.org",
         "https://www.wikipedia.org"
     ]
+    threads = []
+    for url in urls:
+        thread = threading.Thread(target=fetch_and_count_words, args=(url,))
+        thread.start()
+        threads.append(thread)
 
+    for thread in threads:
+        thread.join()
+
+    print("Koniec liczenia")
 
 
 

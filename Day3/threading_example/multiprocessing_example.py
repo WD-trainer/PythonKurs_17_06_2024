@@ -4,7 +4,7 @@ import time
 def cpu_bound_task():
     # Intensywnie obliczeniowa operacja
     count = 0
-    for _ in range(10**7):
+    for _ in range(10**8):
         count += 1
 
 if __name__ == "__main__":
@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # Uruchamiamy dwa procesy, każdy wykonujący cpu_bound_task
     processes = []
-    for _ in range(1):
+    for _ in range(10):
         process = multiprocessing.Process(target=cpu_bound_task)
         processes.append(process)
         process.start()

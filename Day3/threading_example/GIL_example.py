@@ -11,7 +11,7 @@ start_time = time.time()
 
 # Uruchamiamy dwa wątki, każdy wykonujący cpu_bound_task
 threads = []
-for _ in range(4):
+for _ in range(2):
     thread = threading.Thread(target=cpu_bound_task)
     threads.append(thread)
     thread.start()
