@@ -87,10 +87,9 @@ def is_prime(num:int) -> bool:
     return True
 
 def find_primes_in_range(start: int, end:int):
-    start_time = time.time()
-    primes = # do uzupelnienia
-
-    end_time = time.time()
+    start_time = time()
+    primes = Parallel(n_jobs=-1)(delayed(is_prime)(num) for num in range(start, end+1))
+    end_time = time()
     prime_numbers = [num for num, is_prime in zip(range(start, end + 1), primes) if is_prime]
     print(f"Time taken: {end_time - start_time:.2f} seconds")
     return prime_numbers
